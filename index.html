@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+        <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script>
+        const VER = "ob55_v1";
+        if (localStorage.getItem("app_ver") !== VER) {
+            localStorage.setItem("app_ver", VER);
+            window.location.reload(true);
+        }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Độ Nhạy FF Cho Các Dòng Máy - settingchuan.vercel.app</title>
+    <meta name="description" content="Nhận ngay bảng độ nhạy Free Fire chuẩn chỉnh nhất, tối ưu riêng cho từng dòng máy điện thoại (iPhone, Samsung, Xiaomi...) giúp kéo tâm full đỏ dễ dàng.">
+    <meta name="keywords" content="độ nhạy ff, setting free fire, độ nhạy free fire, kéo tâm ff, settingchuan.vercel.app, mã hud ff, độ nhạy iphone, độ nhạy android">
+    <meta name="author" content="2PY & MinhMod">
+    <meta property="og:title" content="Độ Nhạy FF Cho Các Dòng Máy - settingchuan.vercel.app">
+    <meta property="og:description" content="Nhập tên máy của bạn để nhận ngay setting độ nhạy kéo tâm Free Fire đỉnh nhất. Hỗ trợ mọi thiết bị!">
+    <meta property="og:type" content="website">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .brand {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 999;
+        }
+
+        .brand img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #ff8c00;
+        }
+
+        .brand span {
+            font-size: 16px;
+            font-weight: 800;
+            color: #ff8c00;
+            letter-spacing: 1px;
+        }
+
+        .credit {
+            text-align: center;
+            font-size: 13px;
+            color: #ff8c00;
+            font-weight: 600;
+            margin-top: 16px;
+            padding-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0d0d0d;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 14px;
+            color: #ff8c00;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        h1 span {
+            color: #ff8c00;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .today-counter {
+            background: rgba(255, 140, 0, 0.1);
+            border: 1px solid rgba(255, 140, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 13px;
+            color: #ff8c00;
+            font-weight: 600;
+            margin-bottom: 24px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .today-counter span {
+            font-size: 18px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            text-align: left;
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input::placeholder {
+            color: #555;
+        }
+
+        .form-group input:focus {
+            border-color: #ff8c00;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #1a1a1a;
+            border: 1px solid #ff8c00;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+
+        .suggestions div {
+            padding: 10px 16px;
+            color: #ddd;
+            font-size: 14px;
+            cursor: pointer;
+            border-bottom: 1px solid #222;
+        }
+
+        .suggestions div:hover {
+            background: rgba(255, 140, 0, 0.15);
+            color: #ff8c00;
+        }
+
+        .device-warning {
+            display: none;
+            margin-top: 6px;
+            padding: 6px 10px;
+            background: rgba(255, 200, 0, 0.1);
+            border: 1px solid rgba(255, 200, 0, 0.3);
+            border-radius: 6px;
+            font-size: 12px;
+            color: #ffc800;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #ff8c00;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: #e07b00;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .toast-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: linear-gradient(135deg, #1f1404, #2a1b06);
+            border: 1px solid #ff8c00;
+            color: #fff;
+            padding: 18px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 90%;
+            width: 420px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9), 0 0 25px rgba(255,140,0,0.4);
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast-alert.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .device-info-badge {
+            background: rgba(255, 140, 0, 0.08);
+            border: 1px dashed rgba(255, 140, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin: 16px 0 20px;
+            font-size: 12px;
+            color: #ccc;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .device-info-badge b {
+            color: #ff8c00;
+        }
+
+        /* Nút hỗ trợ Telegram nổi góc dưới trái */
+        .tele-support {
+            position: fixed;
+            bottom: 18px;
+            left: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(18, 25, 33, 0.9);
+            border: 1px solid #229ED9;
+            padding: 8px 14px;
+            border-radius: 30px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(34, 158, 217, 0.3);
+            z-index: 998;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .tele-support:hover {
+            background: #229ED9;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 158, 217, 0.5);
+        }
+
+        .tele-support svg {
+            width: 18px;
+            height: 18px;
+            fill: #229ED9;
+            transition: fill 0.25s;
+        }
+
+        .tele-support:hover svg {
+            fill: #fff;
+        }
+
+        .note {
+            margin-top: 24px;
+            font-size: 11px;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        .device-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .device-tag {
+            padding: 6px 14px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .device-tag:hover {
+            border-color: #ff8c00;
+            color: #ff8c00;
+        }
+
+        .error-msg {
+            color: #ff4444;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        /* Link result box */
+        .link-result {
+            display: none;
+            margin-top: 24px;
+            padding: 20px;
+            background: #141414;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .link-result .icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .link-result .label {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .link-result .link-box {
+            display: block;
+            padding: 14px 16px;
+            background: #1a1a1a;
+            border: 1px solid #ff8c00;
+            border-radius: 8px;
+            color: #ff8c00;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            word-break: break-all;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+        }
+
+        .link-result .link-box:hover {
+            background: #ff8c00;
+            color: #000;
+        }
+
+        .link-result .hint {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .link-result .device-detected {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(255, 140, 0, 0.15);
+            color: #ff8c00;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 140, 0, 0.3);
+            margin-bottom: 14px;
+        }
+
+        .instruction-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 140, 0, 0.1);
+            border: 1px dashed #ff8c00;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .instruction-title {
+            color: #ff8c00;
+            font-size: 14px;
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .video-btn {
+            display: block;
+            background: linear-gradient(135deg, #ff4444, #ff8c00);
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            animation: pulseBtn 2s infinite;
+        }
+        
+        .video-btn:hover {
+            opacity: 0.9;
+        }
+
+        @keyframes pulseBtn {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 8px rgba(255, 140, 0, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 140, 0, 0); }
+        }
+
+        .instruction-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .step p {
+            font-size: 12px;
+            color: #ccc;
+            margin-bottom: 8px;
+        }
+        
+        .step p b {
+            color: #ff8c00;
+        }
+
+        .step img {
+            width: 100%;
+            border-radius: 6px;
+            border: 1px solid #333;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mũi tên nhảy nhảy gợi ý kéo xuống */
+        .scroll-hint {
+            display: none;
+            position: fixed;
+            bottom: 18px;
+            right: 16px;
+            z-index: 998;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            cursor: pointer;
+            animation: bounceArrow 1.5s ease infinite;
+        }
+
+        .scroll-hint .arrow {
+            font-size: 22px;
+            color: #ff8c00;
+            line-height: 1;
+        }
+
+        .scroll-hint .hint-text {
+            font-size: 9px;
+            color: #ff8c00;
+            background: rgba(255, 140, 0, 0.15);
+            border: 1px solid rgba(255, 140, 0, 0.3);
+            padding: 2px 7px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        @keyframes bounceArrow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes shakeBtn { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
+        .shake-anim { animation: shakeBtn 0.5s ease-in-out; }
+    </style>
+</head>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<body>
+    <!-- Thông báo nổi cảnh báo khi bấm lấy độ nhạy -->
+    <div class="toast-alert" id="toastAlert">
+        ⚠️ <b>Lưu ý quan trọng:</b> Nếu nhập thiết bị không tồn tại, hệ thống sẽ đưa ra độ nhạy sai! Mỗi thiết bị có 1 độ nhạy riêng biệt.
+    </div>
+
+    <!-- WIDGET HỖ TRỢ (TELEGRAM + LIVE CHAT) -->
+    <style>
+    .support-widget { position: fixed; bottom: 20px; left: 20px; z-index: 9998; display: flex; flex-direction: column; align-items: flex-start; }
+    .support-options { display: none; flex-direction: column; gap: 8px; margin-bottom: 12px; transform: translateY(10px); opacity: 0; transition: all 0.3s; }
+    .support-options.active { display: flex; transform: translateY(0); opacity: 1; }
+    .opt-btn { background: #fff; border-radius: 20px; padding: 8px 16px; display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 14px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); cursor: pointer; border: 2px solid transparent; }
+    .opt-btn.tele { color: #0088cc; border-color: #0088cc; }
+    .opt-btn.live { color: #ff3366; border-color: #ff3366; }
+    .live-chat-box { position: fixed; bottom: 80px; left: 20px; width: 320px; height: 420px; background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 9999; display: none; flex-direction: column; overflow: hidden; font-family: sans-serif; border: 1px solid #eee; animation: slideUp 0.3s ease-out; }
+    .live-chat-box.active { display: flex; }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .lc-header { background: linear-gradient(135deg, #ff3366, #ff7b93); color: #fff; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 16px; }
+    .lc-close { cursor: pointer; padding: 0 5px; }
+    .lc-messages { flex: 1; background: #f9f9f9; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+    .lc-msg { max-width: 85%; padding: 10px 14px; font-size: 14px; line-height: 1.4; word-wrap: break-word; white-space: pre-wrap; }
+    .lc-msg.admin { background: #e9ecef; color: #333; align-self: flex-start; border-radius: 16px 16px 16px 4px; }
+    .lc-msg.user { background: #ff3366; color: #fff; align-self: flex-end; border-radius: 16px 16px 4px 16px; }
+    .lc-input-area { display: flex; padding: 10px; background: #fff; border-top: 1px solid #eee; }
+    #lcInput { flex: 1; border: 1px solid #ddd; border-radius: 20px; padding: 10px 14px; outline: none; font-size: 14px; }
+    .lc-send { background: #ff3366; color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; margin-left: 8px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(255,51,102,0.3); }
+    @media (max-width: 400px) { .live-chat-box { width: calc(100vw - 40px); left: 20px; bottom: 80px; } }
+    .tele-support { position: static !important; }
+    .lc-attach, .admin-attach { background: none; border: none; font-size: 20px; cursor: pointer; padding: 0 8px; }
+    .admin-attach { font-size: 24px; padding: 0 12px; }
+    .lc-msg img, .admin-msg img { max-width: 100%; border-radius: 8px; display: block; margin-top: 5px; cursor: pointer; }
+</style>
+
+    <div class="support-widget" id="supportWidget">
+        <div class="support-options" id="supportOptions">
+            <a href="https://t.me/hongmink188" target="_blank" class="opt-btn tele">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                Nhắn Tele
+            </a>
+            <div class="opt-btn live" onclick="openLiveChat()">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                Nhắn trực tiếp
+            </div>
+        </div>
+        <a href="javascript:void(0)" class="tele-support main-btn" onclick="toggleSupportOptions()" style="position:relative;">
+            <div id="chatBadge" style="display:none; position:absolute; top:-5px; right:-5px; background:#ff3366; color:white; border-radius:50%; width:22px; height:22px; text-align:center; font-size:12px; line-height:22px; font-weight:bold; box-shadow:0 0 5px rgba(0,0,0,0.5); z-index:10;">0</div>
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+            </svg>
+            <span>Báo lỗi và hỗ trợ</span>
+        </a>
+    </div>
+
+    <div class="live-chat-box" id="liveChatBox">
+        <div class="lc-header">
+            <span style="font-weight:bold;">💬 Hỗ trợ 2PY</span>
+            <span class="lc-close" onclick="closeLiveChat()">✖</span>
+        </div>
+        <div class="lc-messages" id="lcMessages">
+            <div class="lc-msg admin">Nếu bạn không tìm thấy thiết bị thì hãy nhập thủ công bằng tay và ấn lấy độ nhạy nhé. Nếu không lấy được mã hãy nhắn tên thiết bị để 2PY check nhé!</div>
+        </div>
+        <div class="lc-input-area">
+            <input type="file" id="lcImageInput" accept="image/*" style="display:none;" onchange="sendImageChat(event, 'user')">
+            <button class="lc-attach" onclick="document.getElementById('lcImageInput').click()">📷</button>
+            <input type="text" id="lcInput" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') sendLiveChat()">
+            <button class="lc-send" onclick="sendLiveChat()">➤</button>
+        </div>
+    </div>
+
+    <script>
+        const chatFirebaseConfig = {
+            apiKey: "AIzaSyBXEzIa3pAWGweaNv5hsoYBXYIuVHg_5AI",
+            authDomain: "livechat-2py.firebaseapp.com",
+            databaseURL: "https://livechat-2py-default-rtdb.firebaseio.com",
+            projectId: "livechat-2py",
+            storageBucket: "livechat-2py.firebasestorage.app",
+            messagingSenderId: "533519278024",
+            appId: "1:533519278024:web:9360fead3a82b807602afd",
+            measurementId: "G-C5LE7JMBHM"
+        };
+        let chatApp, chatDb;
+        try {
+            chatApp = firebase.initializeApp(chatFirebaseConfig, "ChatApp");
+            chatDb = chatApp.database();
+        } catch(e) {
+            chatDb = firebase.app("ChatApp").database();
+        }
+        window.isChatOpen = false;
+        let lcDbRef = null;
+        let unreadCount = 0;
+
+        function toggleSupportOptions() {
+            const opts = document.getElementById('supportOptions');
+            opts.classList.toggle('active');
+            if (opts.classList.contains('active')) {
+                document.querySelector('.tele-support.main-btn span').textContent = 'Đóng menu';
+            } else {
+                document.querySelector('.tele-support.main-btn span').textContent = 'Báo lỗi và hỗ trợ';
+            }
+        }
+
+        function sendTelegramNotif(deviceName, message) {
+            const token = "8933574728:AAGGmsFyK8tjy3RG58Wz70_GFEfG2ug_w5Q";
+            const chatId = "6065966721";
+            let text = "🚨 <b>CÓ TIN NHẮN TỪ WEB 2PY</b>\n";
+            text += "📱 Khách: <b>" + (deviceName && deviceName !== 'Chưa nhập' ? deviceName : "Khách mới (Chưa nhập mã)") + "</b>\n";
+            text += "💬 Nội dung: <i>" + message + "</i>";
+            
+            fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: text,
+                    parse_mode: 'HTML'
+                })
+            }).catch(e => console.error(e));
+        }
+
+        function getLiveChatId() {
+            try {
+                let cid = localStorage.getItem('livechat_id');
+                if (!cid) {
+                    cid = 'chat_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+                    localStorage.setItem('livechat_id', cid);
+                }
+                return cid;
+            } catch(e) {
+                if (!window.temp_cid) window.temp_cid = 'chat_' + Math.random().toString(36).substr(2, 9);
+                return window.temp_cid;
+            }
+        }
+
+        function openLiveChat() {
+            document.getElementById('supportOptions').classList.remove('active');
+            document.querySelector('.tele-support.main-btn span').textContent = 'Báo lỗi và hỗ trợ';
+            document.getElementById('supportWidget').style.display = 'none';
+            document.getElementById('liveChatBox').classList.add('active');
+            unreadCount = 0;
+            const badge = document.getElementById('chatBadge');
+            if (badge) badge.style.display = 'none';
+            window.isChatOpen = true;
+            if (typeof lcDbRef !== 'undefined' && lcDbRef) { lcDbRef.update({ user_seen: true, last_active: firebase.database.ServerValue.TIMESTAMP }); }
+
+            if (typeof firebase !== 'undefined' && firebase.database) {
+                chatDb.goOnline();
+                if (!lcDbRef) {
+                    const cid = getLiveChatId();
+                    lcDbRef = chatDb.ref('live_chats/' + cid);
+                    
+                    lcDbRef.child('messages').on('child_added', (snap) => {
+                        const data = snap.val();
+                        appendLcMsg(data.sender, data.text, data.image);
+                        if (data.sender === 'admin') { if (!window.isChatOpen) {
+                            unreadCount++;
+                            const badge = document.getElementById('chatBadge');
+                            if (badge) {
+                                badge.textContent = unreadCount;
+                                badge.style.display = 'block';
+                            }
+                            const btn = document.querySelector('.tele-support');
+                            if (btn) {
+                                btn.classList.remove('shake-anim');
+                                void btn.offsetWidth;
+                                btn.classList.add('shake-anim');
+                            }
+                        } else { lcDbRef.update({ user_seen: true }); } }
+                    });
+                }
+            }
+        }
+
+        function closeLiveChat() {
+            document.getElementById('liveChatBox').classList.remove('active');
+            document.getElementById('supportWidget').style.display = 'flex';
+            window.isChatOpen = false;
+            if (typeof firebase !== 'undefined' && firebase.database) {
+                setTimeout(() => {
+                    /* No goOffline for chat */
+                }, 2000);
+            }
+        }
+
+        function appendLcMsg(sender, text, imageUrl) {
+            const box = document.getElementById('lcMessages');
+            const div = document.createElement('div');
+            div.className = 'lc-msg ' + sender;
+            div.textContent = text;
+            if (imageUrl) {
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.onclick = () => window.open(imageUrl, '_blank');
+                div.appendChild(img);
+            }
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function compressAndSendImage(file, sender, chatIdRef) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = event => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 500;
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > MAX_WIDTH) {
+                        height = Math.floor(height * (MAX_WIDTH / width));
+                        width = MAX_WIDTH;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.6);
+                    chatIdRef.child('messages').push({
+                        sender: sender,
+                        text: '[Hình ảnh]',
+                        image: dataUrl,
+                        time: Date.now()
+                    });
+                    const dInput = document.getElementById('deviceInput');
+                    if (sender === 'user' && dInput && dInput.value) {
+                        chatIdRef.update({ last_active: Date.now(), device: dInput.value, admin_seen: false });
+                        sendTelegramNotif(dInput.value, '[Khách vừa gửi 1 hình ảnh]');
+                    } else if (sender === 'user') {
+                        chatIdRef.update({ last_active: Date.now(), admin_seen: false });
+                        sendTelegramNotif('Chưa nhập', '[Khách vừa gửi 1 hình ảnh]');
+                    } else {
+                        chatIdRef.update({ last_active: Date.now(), user_seen: false, admin_seen: true });
+                    }
+
+                    if (sender === 'user') {
+                        if (!localStorage.getItem('has_received_autoreply')) {
+                            localStorage.setItem('has_received_autoreply', 'true');
+                            setTimeout(() => {
+                                chatIdRef.child('messages').push({
+                                    sender: 'admin',
+                                    text: '🤖 Hệ thống: Hiện tại 2PY đang bận. Bạn quay lại check tin nhắn sau hoặc vượt link để lấy độ nhạy luôn nhé!',
+                                    time: Date.now()
+                                });
+                                chatIdRef.update({ last_active: Date.now(), user_seen: false });
+                            }, 1500);
+                        }
+                    }
+                }
+            }
+        }
+
+        function sendImageChat(event, sender) {
+            const file = event.target.files[0];
+            if (!file) return;
+            if (sender === 'user') {
+                if (typeof lcDbRef !== 'undefined' && lcDbRef) {
+                    compressAndSendImage(file, 'user', lcDbRef);
+                }
+            } else if (sender === 'admin') {
+                if (!activeChatId) return alert('Vui lòng chọn 1 người bên danh sách để gửi ảnh!');
+                compressAndSendImage(file, 'admin', chatDb.ref('live_chats/' + activeChatId));
+            }
+            event.target.value = '';
+        }
+
+        function sendLiveChat() {
+            try {
+                const input = document.getElementById('lcInput');
+                if (!input) return;
+                const text = input.value.trim();
+                if (!text) return;
+                
+                // Clear input immediately to ensure UI responsiveness
+                input.value = '';
+
+                if (typeof lcDbRef !== 'undefined' && lcDbRef) {
+                    lcDbRef.child('messages').push({
+                        sender: 'user',
+                        text: text,
+                        time: Date.now()
+                    });
+                    const dInput = document.getElementById('deviceInput');
+                    const devName = dInput && dInput.value ? dInput.value : 'Chưa nhập';
+                    lcDbRef.update({
+                        last_active: Date.now(),
+                        device: devName,
+                        admin_seen: false
+                    });
+                    sendTelegramNotif(devName, text);
+                    
+                    if (!localStorage.getItem('has_received_autoreply')) {
+                        localStorage.setItem('has_received_autoreply', 'true');
+                        setTimeout(() => {
+                            lcDbRef.child('messages').push({
+                                sender: 'admin',
+                                text: '🤖 Hệ thống: Hiện tại 2PY đang bận. Bạn quay lại check tin nhắn sau hoặc vượt link để lấy độ nhạy luôn nhé!',
+                                time: Date.now()
+                            });
+                            lcDbRef.update({
+                                last_active: Date.now(),
+                                user_seen: false
+                            });
+                        }, 1500);
+                    }
+                } else {
+                    appendLcMsg('user', text);
+                }
+            } catch (err) {
+                console.error("LiveChat Error:", err);
+                appendLcMsg('user', "Lỗi gửi: " + err.message);
+            }
+        }
+    </script>
+<!-- GIAO DIỆN QUẢN LÝ CHAT ADMIN -->
+<style>
+.admin-chat-btn { position: fixed; top: 15px; left: 15px; background: #ffc107; color: #000; padding: 10px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: none; border: 2px solid #e0a800;}
+.admin-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 10000; display: none; flex-direction: row; padding: 20px; font-family: sans-serif; }
+.admin-modal.active { display: flex; }
+.admin-sidebar { width: 300px; background: #fff; border-radius: 12px 0 0 12px; display: flex; flex-direction: column; overflow: hidden; }
+.admin-main { flex: 1; background: #f0f2f5; border-radius: 0 12px 12px 0; display: flex; flex-direction: column; border-left: 1px solid #ddd; }
+.admin-header { background: #333; color: #fff; padding: 15px; font-size: 18px; font-weight: bold; text-align: center; }
+.admin-chat-list { flex: 1; overflow-y: auto; }
+.admin-chat-item { padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.2s; }
+.admin-chat-item:hover, .admin-chat-item.active { background: #ffe4e1; }
+.admin-chat-item .device { font-weight: bold; color: #ff3366; }
+.admin-chat-item .time { font-size: 12px; color: #888; margin-top: 5px; }
+.admin-chat-header { background: #fff; padding: 15px; font-weight: bold; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;}
+.admin-chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.admin-msg { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 14px; line-height: 1.4; word-wrap: break-word; white-space: pre-wrap; }
+.admin-chat-input-area { display: flex; padding: 15px; background: #fff; border-top: 1px solid #ddd; }
+.admin-chat-input-area input { flex: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 20px; outline: none; font-size: 15px;}
+.admin-chat-input-area button { background: #ff3366; color: #fff; border: none; padding: 0 20px; border-radius: 20px; margin-left: 10px; cursor: pointer; font-weight: bold; font-size: 15px;}
+@media (max-width: 700px) {
+    .admin-modal { flex-direction: column; padding: 0; }
+    .admin-sidebar { width: 100%; height: 35%; border-radius: 0; }
+    .admin-main { height: 65%; border-radius: 0; border-left: none; border-top: 1px solid #ddd; }
+}
+</style>
+
+<div class="admin-chat-btn" id="adminChatBtn" onclick="openAdminModal()">👑 Check Tin Nhắn</div>
+<div class="admin-modal" id="adminModal">
+    <div class="admin-sidebar">
+        <div class="admin-header">Danh sách Chat</div>
+        <div class="admin-chat-list" id="adminChatList"></div>
+    </div>
+    <div class="admin-main">
+        <div class="admin-chat-header">
+            <div style="display:flex; flex-direction:column;"><span id="adminCurrentChatName" style="color:#ff3366;font-size:16px;">Chọn một cuộc trò chuyện</span><span id="adminCurrentChatStatus" style="font-size:12px;color:#888;"></span></div>
+            <div>
+                <button id="adminDeleteChatBtn" onclick="deleteAdminChat()" style="background:#dc3545;color:white;border:none;padding:8px 12px;border-radius:5px;cursor:pointer;font-weight:bold;display:none;margin-right:5px;">🗑️ Xóa</button>
+                <button onclick="closeAdminModal()" style="background:#555;color:white;border:none;padding:8px 12px;border-radius:5px;cursor:pointer;font-weight:bold;">Đóng X</button>
+            </div>
+        </div>
+        <div class="admin-chat-messages" id="adminChatMessages"></div>
+                <div class="admin-chat-input-area" style="flex-direction: column; padding: 10px 15px;">
+            <div style="display:flex; gap:5px; margin-bottom: 8px; width:100%; overflow-x:auto; white-space:nowrap;">
+                <button onclick="sendQuickReply('HuongDan')" style="font-size:11px; padding:4px 10px; background:#17a2b8; color:#fff; border:none; border-radius:15px; cursor:pointer; margin-left:0;">🎯 Bảo tự lấy</button>
+                <button onclick="sendQuickReply('DoiTy')" style="font-size:11px; padding:4px 10px; background:#6c757d; color:#fff; border:none; border-radius:15px; cursor:pointer; margin-left:0;">⏳ Bảo đợi</button>
+                <button onclick="sendQuickReply('F5')" style="font-size:11px; padding:4px 10px; background:#28a745; color:#fff; border:none; border-radius:15px; cursor:pointer; margin-left:0;">🛠️ F5</button>
+                <button onclick="sendQuickReply('Sens')" style="font-size:11px; padding:4px 10px; background:#ff3366; color:#fff; border:none; border-radius:15px; cursor:pointer; font-weight:bold; margin-left:0;">⚡ Tính & Gửi Số</button>
+            </div>
+            <div style="display:flex; width:100%;">
+                <input type="file" id="adminImageInput" accept="image/*" style="display:none;" onchange="sendImageChat(event, 'admin')">
+                <button class="admin-attach" onclick="document.getElementById('adminImageInput').click()" style="margin-left:0; padding:0 10px;">📷</button>
+                <input type="text" id="adminChatInput" placeholder="Nhập tên máy (VD: iPhone 6s) rồi bấm ⚡ Tính..." onkeypress="if(event.key==='Enter') sendAdminMsg()" style="flex:1;">
+                <button onclick="sendAdminMsg()">Gửi</button>
+            </div>
+        </div>
+      </div>
+  </div>
+
+<script>
+let adminChatsRef = null;
+let activeChatId = null;
+let activeChatListener = null;
+
+let globalMemberCounter = 1;
+let globalMemberMap = {};
+
+function openAdminModal() {
+    document.getElementById('adminModal').classList.add('active');
+    if (typeof firebase !== 'undefined' && firebase.database) {
+        chatDb.goOnline();
+        window.isChatOpen = true;
+            if (typeof lcDbRef !== 'undefined' && lcDbRef) { lcDbRef.update({ user_seen: true, last_active: firebase.database.ServerValue.TIMESTAMP }); }
+        if (!adminChatsRef) {
+            adminChatsRef = chatDb.ref('live_chats');
+            adminChatsRef.orderByChild('last_active').on('value', snap => {
+                const list = document.getElementById('adminChatList');
+                list.innerHTML = '';
+                const chats = [];
+                
+                snap.forEach(child => {
+                    let cData = child.val();
+                    let dName = cData.device;
+                    if (!dName || dName.trim() === '' || dName === 'Chưa nhập' || dName === 'Không rõ' || dName === 'Khách') {
+                        if (!globalMemberMap[child.key]) {
+                            globalMemberMap[child.key] = "Member " + globalMemberCounter++;
+                        }
+                        dName = globalMemberMap[child.key];
+                    }
+                    chats.push({ id: child.key, display_name: dName, ...cData });
+                });
+                
+                chats.reverse().forEach(chat => {
+                    const div = document.createElement('div');
+                    div.className = 'admin-chat-item' + (activeChatId === chat.id ? ' active' : '');
+                    let timeStr = '';
+                    if(chat.last_active) {
+                        const d = new Date(chat.last_active);
+                        timeStr = d.getHours()+':'+String(d.getMinutes()).padStart(2,'0') + ' ' + d.getDate()+'/'+(d.getMonth()+1);
+                    }
+                                          let statusHtml = '';
+                      if (chat.admin_seen === false) {
+                          statusHtml = '<span style="color:#007bff; font-weight:bold; font-size:12px;">🔵 CÓ TIN NHẮN MỚI</span>';
+                          div.style.backgroundColor = '#e6f2ff';
+                      } else if (chat.user_seen === false) {
+                          statusHtml = '<span style="color:#888; font-size:12px;">✓ Đã gửi (Khách chưa xem)</span>';
+                      } else if (chat.user_seen === true) {
+                          statusHtml = '<span style="color:#00c851; font-size:12px;">✔️ Khách đã xem</span>';
+                      }
+                      
+                      let fontWeight = chat.admin_seen === false ? '900' : 'normal';
+                      div.innerHTML = '<div class="device" style="font-weight:' + fontWeight + ';">' + chat.display_name + '</div><div class="time">' + statusHtml + '<br>' + timeStr + '</div>';
+                    div.addEventListener('click', function() {
+                        loadAdminChat(chat.id, chat.display_name);
+                        document.querySelectorAll('.admin-chat-item').forEach(el => el.classList.remove('active'));
+                        div.classList.add('active');
+                    });
+                    list.appendChild(div);
+                });
+            });
+        }
+    }
+}
+
+
+function deleteAdminChat() {
+    if (!activeChatId) return;
+    if (confirm("Bạn có chắc chắn muốn xóa vĩnh viễn toàn bộ tin nhắn của khách này không? (Sẽ giúp Firebase nhẹ đi rất nhiều)")) {
+        chatDb.ref('live_chats/' + activeChatId).remove()
+        .then(() => {
+            activeChatId = null;
+            document.getElementById('adminCurrentChatName').textContent = 'Chọn một cuộc trò chuyện';
+            document.getElementById('adminCurrentChatStatus').textContent = '';
+            document.getElementById('adminChatMessages').innerHTML = '';
+            document.getElementById('adminDeleteChatBtn').style.display = 'none';
+        })
+        .catch(err => alert("Lỗi xóa: " + err.message));
+    }
+}
+function closeAdminModal() { document.getElementById('adminModal').classList.remove('active'); window.isChatOpen = false; }
+
+function loadAdminChat(chatId, deviceName) {
+    activeChatId = chatId;
+    document.getElementById('adminCurrentChatName').textContent = deviceName;
+      chatDb.ref('live_chats/' + chatId).update({ admin_seen: true });
+    document.getElementById('adminDeleteChatBtn').style.display = 'inline-block';
+    const msgBox = document.getElementById('adminChatMessages');
+    msgBox.innerHTML = '';
+
+    if (activeChatListener) {
+        chatDb.ref('live_chats/' + activeChatListener + '/messages').off('child_added');
+    }
+    activeChatListener = chatId;
+      chatDb.ref('live_chats/' + chatId).on('value', snap => { const d = snap.val(); if(d && document.getElementById('adminCurrentChatStatus')){ document.getElementById('adminCurrentChatStatus').textContent = d.user_seen ? '✔️ Khách đã xem' : 'Chưa xem'; document.getElementById('adminCurrentChatStatus').style.color = d.user_seen ? '#00c851' : '#888'; } });
+
+    chatDb.ref('live_chats/' + chatId + '/messages').on('child_added', snap => {
+        const data = snap.val();
+        const div = document.createElement('div');
+        div.className = 'admin-msg';
+        div.style.alignSelf = data.sender === 'admin' ? 'flex-end' : 'flex-start';
+        div.style.background = data.sender === 'admin' ? '#ff3366' : '#e9ecef';
+        div.style.color = data.sender === 'admin' ? '#fff' : '#333';
+        div.style.borderRadius = data.sender === 'admin' ? '15px 15px 4px 15px' : '15px 15px 15px 4px';
+        div.textContent = data.text;
+        if (data.image) {
+            const img = document.createElement('img');
+            img.src = data.image;
+            img.onclick = () => window.open(data.image, '_blank');
+            div.appendChild(img);
+        }
+        msgBox.appendChild(div);
+        msgBox.scrollTop = msgBox.scrollHeight;
+    });
+}
+
+function sendAdminMsg() {
+    if (!activeChatId) return alert('Vui lòng chọn 1 người bên danh sách để nhắn!');
+    const input = document.getElementById('adminChatInput');
+    const text = input.value.trim();
+    if (!text) return;
+
+    try {
+        chatDb.ref('live_chats/' + activeChatId + '/messages').push({
+            sender: 'admin',
+            text: text,
+            time: Date.now()
+        });
+        chatDb.ref('live_chats/' + activeChatId).update({
+            last_active: Date.now(),
+            user_seen: false,
+            admin_seen: true
+        });
+        input.value = '';
+    } catch(err) {
+        alert("Lỗi: " + err.message);
+    }
+}
+</script>
+<!-- KẾT THÚC ADMIN CHAT -->
+
+    <!-- Logo 2PY góc trên phải -->
+    <div class="brand">
+        <img src="logo.jpg" alt="2PY" width="30" height="30" decoding="async">
+        <span>2PY</span>
+    </div>
+
+    <!-- Mũi tên nhảy nhảy gợi ý kéo xuống -->
+    <div class="scroll-hint" id="scrollHint" onclick="document.querySelector('.instruction-box').scrollIntoView({behavior:'smooth', block:'start'})">
+        <span class="arrow">⬇</span>
+        <span class="hint-text">Xem hướng dẫn</span>
+    </div>
+
+    <div class="container">
+        <div class="logo">⚙ code by 2PY</div>
+        <h1>ĐỘ NHẠY <span>PRO OB55</span></h1>
+        <p class="subtitle">Tối ưu độ nhạy kéo tâm theo thiết bị của bạn</p>
+        
+        <p style="font-size: 13px; color: #facc15; font-weight: bold; margin-bottom: 20px; line-height: 1.5; padding: 10px; background: rgba(250, 204, 21, 0.1); border-radius: 8px; border: 1px dashed rgba(250, 204, 21, 0.5);">
+            💎 Mục đích của TDZ_9 là chia sẻ không cần vượt link
+        </p>
+
+        <div class="today-counter" id="todayCounter">
+            🔥 Hôm nay đã có <span id="todayCount">...</span> người lấy độ nhạy thành công!
+        </div>
+
+        <div class="device-info-badge">
+            🎯 <b>Mỗi thiết bị 1 độ nhạy riêng biệt</b> — Không có chuyện 10 máy chung 1 độ nhạy! Bộ cài đặt được hệ thống phân tích và đo đạc chuẩn theo từng dòng máy.
+        </div>
+
+                                <div class="device-tags">
+            <span class="device-tag" onclick="fillBrand('iPhone')">iPhone</span>
+            <span class="device-tag" onclick="fillBrand('iPad')">iPad</span>
+            <span class="device-tag" onclick="fillBrand('Samsung')">Samsung</span>
+            <span class="device-tag" onclick="fillBrand('Xiaomi')">Xiaomi</span>
+            <span class="device-tag" onclick="fillBrand('Redmi')">Redmi</span>
+            <span class="device-tag" onclick="fillBrand('Poco')">Poco</span>
+            <span class="device-tag" onclick="fillBrand('Realme')">Realme</span>
+            <span class="device-tag" onclick="fillBrand('Oppo')">Oppo</span>
+            <span class="device-tag" onclick="fillBrand('Vivo')">Vivo</span>
+            <span class="device-tag" onclick="fillBrand('iQOO')">iQOO</span>
+            <span class="device-tag" onclick="fillBrand('ROG Phone')">ROG Phone</span>
+            <span class="device-tag" onclick="fillBrand('Nubia')">Nubia</span>
+            <span class="device-tag" onclick="fillBrand('Huawei')">Huawei</span>
+            <span class="device-tag" onclick="fillBrand('Honor')">Honor</span>
+            <span class="device-tag" onclick="fillBrand('LG')">LG</span>
+            <span class="device-tag" onclick="fillBrand('Tecno')">Tecno</span>
+            <span class="device-tag" onclick="fillBrand('Sharp')">Sharp</span>
+            <span class="device-tag" onclick="fillBrand('Infinix')">Infinix</span>
+            <span class="device-tag" onclick="fillBrand('Vsmart')">Vsmart</span>
+            <span class="device-tag" onclick="setDevice('PC Giả Lập')">PC/Giả Lập</span>
+        </div>
+
+        <div class="form-group">
+            <label>Thiết bị của bạn</label>
+            <input type="text" id="deviceInput" placeholder="Nhập thiết bị của bạn (Ví dụ: iPhone 13)" autocomplete="off">
+            <div class="suggestions" id="suggestions"></div>
+            <div style="margin-top:8px;">
+                <span onclick="autoDetectDevice()" style="cursor:pointer; font-size:12px; color:#ff8c00; background:rgba(255,140,0,0.1); border:1px solid rgba(255,140,0,0.3); padding:5px 12px; border-radius:20px; display:inline-block;">📱 Tự nhận diện thiết bị</span>
+            </div>
+            <p class="error-msg" id="errorMsg">Vui lòng nhập tên thiết bị của bạn!</p>
+            <p class="device-warning" id="deviceWarning">⚠️ Không tìm thấy thiết bị này. Vui lòng kiểm tra lại tên máy!</p>
+        </div>
+
+        <button class="btn" onclick="getSensitivity()">🔥 Lấy Độ Nhạy</button>
+
+        <!-- Hiện link rút gọn sau khi bấm nút -->
+        <div class="link-result" id="linkResult">
+            <div class="icon">🔓</div>
+            <span class="device-detected" id="deviceLabel"></span>
+            <p class="label">Độ nhạy đã được tạo cho thiết bị của bạn!</p>
+            <a href="#" class="link-box" id="linkBox" target="_blank">
+                Đang tải link...
+            </a>
+            <p class="hint">👆 Bấm vào link trên để tiến hành lấy độ nhạy</p>
+            
+            <div class="instruction-box">
+                <h3 class="instruction-title">⚠️ HƯỚNG DẪN VƯỢT LINK NHANH (CHỈ 1-2 PHÚT)</h3>
+                <a href="https://drive.google.com/drive/folders/1q0_wk27nGUZhlMv5Xmj3YnZWuZfuK8BJ" target="_blank" class="video-btn">
+                    🎥 Xem Video Cách Làm Nhiệm Vụ Siêu Nhanh (Cho Người Mới)
+                </a>
+                
+                <div class="instruction-steps">
+                    <div class="step">
+                        <p><b>Bước 1:</b> Tại trang nhiệm vụ, tìm kiếm từ khóa và làm theo hướng dẫn.</p>
+                        <img src="step2.jpg" alt="Trang nhiệm vụ" loading="lazy" decoding="async">
+                    </div>
+                    <div class="step">
+                        <p><b>Bước 2:</b> Làm xong nhiệm vụ web sẽ tự động chuyển về trang kết quả.</p>
+                        <img src="step3.jpg" alt="Trang kết quả" loading="lazy" decoding="async">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="note">
+            Hệ thống sẽ phân tích thiết bị và đưa ra bộ cài đặt độ nhạy phù hợp nhất cho bạn.
+        </p>
+
+        <p class="credit">Tool make by MinhMod</p>
+    </div>
+
+    <script>
+        // API Token từ Ontops của bạn
+        const API_TOKEN = "c3326f5a13944a51851d299164d7d94e";
+        
+        // Tự động nhận diện tên miền hiện tại đang chạy web (không cần gõ tay)
+        // Khi test trên máy tính sẽ là http://localhost:8080
+        // Khi lên mạng sẽ tự là link web thật của bạn
+        let SITE_URL = window.location.origin;
+        if (window.location.pathname.includes('/')) {
+            // Lấy thư mục hiện tại nếu có
+            let path = window.location.pathname;
+            path = path.substring(0, path.lastIndexOf('/'));
+            SITE_URL += path;
+        }
+
+        function setDevice(name) {
+            document.getElementById('deviceInput').value = name;
+            document.getElementById('errorMsg').style.display = 'none';
+            document.getElementById('deviceWarning').style.display = 'none';
+            document.getElementById('suggestions').style.display = 'none';
+        }
+
+        // Tự động nhận diện thiết bị từ trình duyệt
+        // Bảng dịch mã model phổ biến sang tên marketing
+        const modelMap = {
+            // Samsung Galaxy S
+            'SM-S928': 'Samsung Galaxy S25 Ultra', 'SM-S926': 'Samsung Galaxy S25+', 'SM-S921': 'Samsung Galaxy S25',
+            'SM-S918': 'Samsung Galaxy S24 Ultra', 'SM-S916': 'Samsung Galaxy S24+', 'SM-S911': 'Samsung Galaxy S24',
+            'SM-S908': 'Samsung Galaxy S23 Ultra', 'SM-S906': 'Samsung Galaxy S23+', 'SM-S901': 'Samsung Galaxy S23',
+            'SM-S711': 'Samsung Galaxy S23 FE', 'SM-S906': 'Samsung Galaxy S22+',
+            'SM-S908B': 'Samsung Galaxy S22 Ultra', 'SM-S901B': 'Samsung Galaxy S22',
+            'SM-G998': 'Samsung Galaxy S21 Ultra', 'SM-G996': 'Samsung Galaxy S21+', 'SM-G991': 'Samsung Galaxy S21',
+            'SM-G990': 'Samsung Galaxy S21 FE', 'SM-G988': 'Samsung Galaxy S20 Ultra', 'SM-G986': 'Samsung Galaxy S20+', 'SM-G981': 'Samsung Galaxy S20',
+            // Samsung Galaxy A
+            'SM-A556': 'Samsung Galaxy A55', 'SM-A546': 'Samsung Galaxy A54',
+            'SM-A356': 'Samsung Galaxy A35', 'SM-A346': 'Samsung Galaxy A34',
+            'SM-A256': 'Samsung Galaxy A25', 'SM-A246': 'Samsung Galaxy A24',
+            'SM-A155': 'Samsung Galaxy A15', 'SM-A146': 'Samsung Galaxy A14',
+            'SM-A057': 'Samsung Galaxy A05s', 'SM-A055': 'Samsung Galaxy A05',
+            'SM-A047': 'Samsung Galaxy A04s', 'SM-A045': 'Samsung Galaxy A04',
+            // Samsung Galaxy M
+            'SM-M546': 'Samsung Galaxy M54', 'SM-M346': 'Samsung Galaxy M34', 'SM-M146': 'Samsung Galaxy M14',
+            // Samsung Note & Fold & Flip
+            'SM-N986': 'Samsung Galaxy Note 20 Ultra', 'SM-N981': 'Samsung Galaxy Note 20', 'SM-N975': 'Samsung Galaxy Note 10+', 'SM-N970': 'Samsung Galaxy Note 10',
+            'SM-F946': 'Samsung Galaxy Z Fold 5', 'SM-F936': 'Samsung Galaxy Z Fold 4', 'SM-F926': 'Samsung Galaxy Z Fold 3',
+            'SM-F731': 'Samsung Galaxy Z Flip 5', 'SM-F721': 'Samsung Galaxy Z Flip 4', 'SM-F711': 'Samsung Galaxy Z Flip 3',
+            // Xiaomi / Redmi / Poco
+            '2201116SG': 'Xiaomi 12', '2304FPN6DC': 'Xiaomi 13', '23113RKC6G': 'Xiaomi 14',
+            '22071219CG': 'Poco F4', '23049PCD8G': 'Poco F5', '24069PC21G': 'Poco F6',
+            // Realme (RMX)
+            'RMX3630': 'Realme C55', 'RMX3710': 'Realme 11', 'RMX3780': 'Realme 12',
+            'RMX3241': 'Realme GT', 'RMX3081': 'Realme 8', 'RMX3371': 'Realme GT Neo 3',
+            // Oppo (CPH)
+            'CPH2495': 'Oppo Reno 10', 'CPH2505': 'Oppo Reno 11', 'CPH2581': 'Oppo A58',
+            'CPH2579': 'Oppo A78', 'CPH2591': 'Oppo A98', 'CPH2385': 'Oppo A57',
+        };
+
+        function translateModel(rawModel) {
+            // Tìm chính xác
+            if (modelMap[rawModel]) return modelMap[rawModel];
+            // Tìm theo tiền tố (ví dụ SM-A155F khớp với SM-A155)
+            for (const code in modelMap) {
+                if (rawModel.startsWith(code)) return modelMap[code];
+            }
+            return null;
+        }
+
+        function fillBrand(name) {
+            const input = document.getElementById('deviceInput');
+            input.value = name + ' ';
+            input.focus();
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+
+        async function autoDetectDevice() {
+            // New modern API for Chromium (Android)
+            if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+                try {
+                    const uaData = await navigator.userAgentData.getHighEntropyValues(['model']);
+                    if (uaData.model) {
+                        let detected = uaData.model;
+                        if (!detected.toLowerCase().includes('samsung') && detected.startsWith('SM-')) detected = 'Samsung ' + detected;
+                        document.getElementById('deviceInput').value = translateModel(detected) || detected;
+                        document.getElementById('errorMsg').style.display = 'none';
+                        document.getElementById('deviceWarning').style.display = 'none';
+                        return;
+                    }
+                } catch(e) {}
+            }
+
+            const ua = navigator.userAgent;
+            let device = '';
+            let isGuess = false;
+
+            if (/iPhone/.test(ua)) {
+                device = 'iPhone';
+                isGuess = true;
+            } else if (/iPad/.test(ua)) {
+                device = 'iPad';
+            } else if (/Android/.test(ua)) {
+                const match = ua.match(/;\s*([^;)]+)\s*Build\//);
+                if (match && match[1]) {
+                    let rawModel = match[1].trim();
+                    // Thử dịch mã model sang tên đẹp
+                    const translated = translateModel(rawModel);
+                    if (translated) {
+                        device = translated;
+                    } else {
+                        // Gắn hãng vào nếu nhận diện được
+                        if (rawModel.startsWith('SM-')) device = 'Samsung ' + rawModel;
+                        else if (rawModel.startsWith('Redmi') || rawModel.startsWith('Mi ')) device = 'Xiaomi ' + rawModel;
+                        else if (rawModel.startsWith('RMX')) device = 'Realme ' + rawModel;
+                        else if (rawModel.startsWith('CPH')) device = 'Oppo ' + rawModel;
+                        else if (rawModel.startsWith('V2') || rawModel.startsWith('V3')) device = 'Vivo ' + rawModel;
+                        else device = rawModel;
+                        isGuess = true;
+                    }
+                } else {
+                    device = 'Android';
+                    isGuess = true;
+                }
+            } else if (/Windows/.test(ua) || /Macintosh/.test(ua)) {
+                device = 'PC Giả Lập';
+            }
+
+            if (device) {
+                document.getElementById('deviceInput').value = device;
+                document.getElementById('errorMsg').style.display = 'none';
+                document.getElementById('deviceWarning').style.display = 'none';
+                // Hiện cảnh báo nhận diện có thể sai
+                const warning = document.getElementById('deviceWarning');
+                warning.textContent = '⚠️ Nhận diện tự động có thể không chính xác. Nếu sai, hãy xóa và nhập tay tên máy đúng!';
+                warning.style.display = 'block';
+                warning.style.background = 'rgba(255, 140, 0, 0.1)';
+                warning.style.borderColor = 'rgba(255, 140, 0, 0.3)';
+                warning.style.color = '#ff8c00';
+            } else {
+                alert('Không thể nhận diện thiết bị. Vui lòng nhập tay!');
+            }
+        }
+
+        // Danh sách thiết bị hợp lệ
+        const validDevices = [
+    // Apple
+    'iPhone 5', 'iPhone 5s', 'iPhone 6', 'iPhone 6 Plus', 'iPhone 6s', 'iPhone 6s Plus', 'iPhone SE', 'iPhone 7', 'iPhone 7 Plus', 'iPhone 8', 'iPhone 8 Plus', 'iPhone X', 'iPhone XR', 'iPhone XS', 'iPhone XS Max', 'iPhone 11', 'iPhone 11 Pro', 'iPhone 11 Pro Max', 'iPhone 12 mini', 'iPhone 12', 'iPhone 12 Pro', 'iPhone 12 Pro Max', 'iPhone 13 mini', 'iPhone 13', 'iPhone 13 Pro', 'iPhone 13 Pro Max', 'iPhone 14', 'iPhone 14 Plus', 'iPhone 14 Pro', 'iPhone 14 Pro Max', 'iPhone 15', 'iPhone 15 Plus', 'iPhone 15 Pro', 'iPhone 15 Pro Max', 'iPhone 16', 'iPhone 16 Plus', 'iPhone 16 Pro', 'iPhone 16 Pro Max',
+    'iPad Mini 4', 'iPad Mini 5', 'iPad Mini 6', 'iPad Air 2', 'iPad Air 3', 'iPad Air 4', 'iPad Air 5', 'iPad Gen 7', 'iPad Gen 8', 'iPad Gen 9', 'iPad Gen 10', 'iPad Pro 11', 'iPad Pro 12.9',
+    // Samsung
+    'Samsung Galaxy S10', 'Samsung Galaxy S20', 'Samsung Galaxy S20 FE', 'Samsung Galaxy S21', 'Samsung Galaxy S21 Ultra', 'Samsung Galaxy S22', 'Samsung Galaxy S22 Ultra', 'Samsung Galaxy S23', 'Samsung Galaxy S23 Ultra', 'Samsung Galaxy S24', 'Samsung Galaxy S24 Ultra',
+    'Samsung Galaxy A10', 'Samsung Galaxy A10s', 'Samsung Galaxy A11', 'Samsung Galaxy A12', 'Samsung Galaxy A13', 'Samsung Galaxy A14', 'Samsung Galaxy A15', 'Samsung Galaxy A20', 'Samsung Galaxy A20s', 'Samsung Galaxy A21s', 'Samsung Galaxy A22', 'Samsung Galaxy A23', 'Samsung Galaxy A31', 'Samsung Galaxy A32', 'Samsung Galaxy A50', 'Samsung Galaxy A51', 'Samsung Galaxy A52', 'Samsung Galaxy A53', 'Samsung Galaxy A54', 'Samsung Galaxy A71', 'Samsung Galaxy A72', 'Samsung Galaxy A73', 'Samsung Galaxy J7 Prime', 'Samsung Galaxy Note 10', 'Samsung Galaxy Note 20 Ultra',
+    // Xiaomi / Redmi / Poco
+    'Xiaomi Redmi Note 7', 'Xiaomi Redmi Note 8', 'Xiaomi Redmi Note 8 Pro', 'Xiaomi Redmi Note 9', 'Xiaomi Redmi Note 9S', 'Xiaomi Redmi Note 9 Pro', 'Xiaomi Redmi Note 10', 'Xiaomi Redmi Note 10S', 'Xiaomi Redmi Note 10 Pro', 'Xiaomi Redmi Note 11', 'Xiaomi Redmi Note 11 Pro', 'Xiaomi Redmi Note 12', 'Xiaomi Redmi Note 12 Pro', 'Xiaomi Redmi Note 13', 'Xiaomi Redmi Note 13 Pro', 'Xiaomi Redmi 8', 'Xiaomi Redmi 9', 'Xiaomi Redmi 9A', 'Xiaomi Redmi 9C', 'Xiaomi Redmi 10', 'Xiaomi Redmi 12',
+    'Poco X3 NFC', 'Poco X3 Pro', 'Poco X4 Pro', 'Poco M3', 'Poco M4 Pro', 'Poco F3', 'Poco F4', 'Poco F5',
+    'Xiaomi 11T', 'Xiaomi 12T', 'Xiaomi 13', 'Xiaomi 14',
+    // Oppo
+    'Oppo A3s', 'Oppo A5s', 'Oppo A1k', 'Oppo A12', 'Oppo A15', 'Oppo A16', 'Oppo A31', 'Oppo A37', 'Oppo A53', 'Oppo A54', 'Oppo A55', 'Oppo A57', 'Oppo A58', 'Oppo A74', 'Oppo A76', 'Oppo A78', 'Oppo A92', 'Oppo A93', 'Oppo A94', 'Oppo A95', 'Oppo A96',
+    'Oppo Reno 4', 'Oppo Reno 5', 'Oppo Reno 6', 'Oppo Reno 6Z', 'Oppo Reno 7', 'Oppo Reno 7Z', 'Oppo Reno 8', 'Oppo Reno 8T', 'Oppo Reno 10',
+    // Vivo
+    'Vivo Y11', 'Vivo Y12', 'Vivo Y12s', 'Vivo Y15', 'Vivo Y15s', 'Vivo Y17', 'Vivo Y19', 'Vivo Y20', 'Vivo Y20s', 'Vivo Y21', 'Vivo Y21s', 'Vivo Y33s', 'Vivo Y53s', 'Vivo Y91C', 'Vivo V20', 'Vivo V21', 'Vivo V23e', 'Vivo V25',
+    // Realme
+    'Realme C2', 'Realme C3', 'Realme C11', 'Realme C12', 'Realme C15', 'Realme C21', 'Realme C21Y', 'Realme C35', 'Realme C53', 'Realme C55', 'Realme 5', 'Realme 5i', 'Realme 5 Pro', 'Realme 6', 'Realme 7', 'Realme 8', 'Realme 9', 'Realme 10', 'Realme 11',
+    // Other
+    'iQOO 11', 'iQOO 12', 'iQOO Neo 7', 'iQOO Z7', 'ROG Phone 5', 'ROG Phone 6', 'ROG Phone 7', 'Nubia Red Magic 7', 'Nubia Red Magic 8 Pro', 'Huawei P30', 'Huawei P40', 'Huawei P50', 'Huawei Mate 40', 'Huawei Nova 9', 'Honor 50', 'Honor 70', 'Honor 90', 'LG V50', 'LG V60', 'LG Velvet', 'Sharp Aquos R5G', 'Sharp Aquos R6', 'Infinix Hot 10', 'Infinix Hot 11', 'Infinix Hot 20', 'Infinix Hot 30', 'Tecno Spark 8C', 'Tecno Spark 10', 'Tecno Pova 2', 'Tecno Pova 4',
+    'Vsmart Joy 3', 'Vsmart Joy 4', 'Vsmart Live 4', 'Vsmart Star 4', 'Vsmart Star 5',
+    'PC Giả Lập', 'LDPlayer', 'BlueStacks', 'MeMu', 'NoxPlayer'
+];
+
+        // Autocomplete gợi ý
+        const deviceInput = document.getElementById('deviceInput');
+        const suggestionsBox = document.getElementById('suggestions');
+
+        deviceInput.addEventListener('input', function() {
+            const val = this.value.trim().toLowerCase();
+            document.getElementById('deviceWarning').style.display = 'none';
+            if (val.length < 2) { suggestionsBox.style.display = 'none'; return; }
+            const matches = validDevices.filter(d => d.toLowerCase().includes(val)).slice(0, 20);
+            if (matches.length > 0) {
+                suggestionsBox.innerHTML = matches.map(m => '<div onclick="setDevice(\'' + m + '\')">' + m + '</div>').join('');
+                suggestionsBox.style.display = 'block';
+            } else {
+                suggestionsBox.style.display = 'none';
+            }
+        });
+
+        // Ẩn suggestions khi click bên ngoài
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.form-group')) suggestionsBox.style.display = 'none';
+        });
+
+        // Kiểm tra thiết bị hợp lệ (chỉ cần chứa tên hãng là được)
+        // Kiểm tra thiết bị hợp lệ (chỉ cho smartphone/máy cảm ứng/PC, chặn máy cục gạch/bàn phím)
+        // Kiểm tra thiết bị hợp lệ (chỉ cho smartphone/máy cảm ứng/PC, chặn máy cục gạch/bàn phím)
+        const validBrands = [
+            'iphone','ipad','samsung','galaxy','xiaomi','redmi','poco',
+            'realme','oppo','vivo','iqoo','huawei','honor','lg','rog',
+            'asus','nokia','sony','oneplus','google','pixel',
+            'tecno','motorola','moto','lenovo','sharp',
+            'meizu','zte','nubia','black shark','blackshark','bphone',
+            'infinix','vsmart','itel',
+            'pc','giả lập','gia lap','ldplayer','bluestack','memu','nox'
+        ];
+
+        // Danh sách từ khóa máy "cục gạch" bàn phím cổ hoặc spam phá hoại
+        const keypadBlacklist = [
+            '1280', '1202', '1110', '105', '110', '215', '225', '3310', '6300',
+            'bàn phím', 'ban phim', 'cục gạch', 'cuc gach', 'nokia 360', '360'
+        ];
+
+        function isValidDevice(name) {
+            const n = name.toLowerCase();
+            // Nếu phát hiện máy phím / 1280 thì chặn tuyệt đối
+            if (keypadBlacklist.some(k => n.includes(k))) {
+                return false;
+            }
+            return validBrands.some(b => n.includes(b));
+        }
+
+        function detectDeviceType(deviceName) {
+            const name = deviceName.toLowerCase();
+            if (name.includes('iphone') || name.includes('ipad') || name.includes('ios') || name.includes('apple') || /^ip\s*\d/i.test(name)) {
+                return 'iphone';
+            }
+            if (name.includes('pc') || name.includes('giả lập') || name.includes('gia lap') || name.includes('ldplayer') || name.includes('bluestack') || name.includes('memu') || name.includes('nox')) {
+                return 'pc';
+            }
+            return 'android';
+        }
+
+        async function getSensitivity() {
+            const deviceInput = document.getElementById('deviceInput');
+            const errorMsg = document.getElementById('errorMsg');
+            const btn = document.querySelector('.btn');
+            const deviceName = deviceInput.value.trim();
+
+            if (!deviceName) {
+                errorMsg.style.display = 'block';
+                deviceInput.style.borderColor = '#ff4444';
+                return;
+            }
+
+            // Kiểm tra thiết bị hợp lệ
+            const warning = document.getElementById('deviceWarning');
+            if (!isValidDevice(deviceName)) {
+                warning.textContent = '⚠️ Thiết bị không hợp lệ hoặc máy bàn phím/cục gạch không thể cài đặt Free Fire!';
+                warning.style.display = 'block';
+                deviceInput.style.borderColor = '#ffc800';
+                return;
+            }
+            errorMsg.style.display = 'none';
+            deviceInput.style.borderColor = '#333';
+
+            // Kích hoạt thông báo nổi cảnh báo hiện 4.5 giây
+            const toast = document.getElementById('toastAlert');
+            if (toast) {
+                toast.classList.add('show');
+                clearTimeout(window.toastTimer);
+                window.toastTimer = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 4500);
+            }
+
+            const deviceType = detectDeviceType(deviceName);
+            const typeLabel = deviceType === 'iphone' ? 'iOS' : deviceType === 'pc' ? 'PC/Giả Lập' : 'Android';
+
+            // Tạo URL đích (trang kết quả) - Thêm tham số rand để tạo link mới mỗi lần bấm
+            const randomStr = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+            const dDate = new Date();
+            const utcTime = dDate.getTime() + (dDate.getTimezoneOffset() * 60000);
+            const vnTimeObj = new Date(utcTime + (3600000 * 7));
+            const dateStr = vnTimeObj.getFullYear() + "-" + String(vnTimeObj.getMonth() + 1).padStart(2, "0") + "-" + String(vnTimeObj.getDate()).padStart(2, "0");
+            const dailyToken = btoa("ff_" + dateStr + "_minhmod");
+            
+            const resultUrl = `${SITE_URL}/result.html?device=${encodeURIComponent(deviceName)}&type=${deviceType}&token=${dailyToken}&rand=${randomStr}`;
+
+            // Giao diện
+            const linkResult = document.getElementById('linkResult');
+            const linkBox = document.getElementById('linkBox');
+            const deviceLabel = document.getElementById('deviceLabel');
+
+            deviceLabel.textContent = `📱 ${deviceName} • ${typeLabel}`;
+
+            // Hiện trạng thái đang tạo link
+            btn.disabled = true;
+            btn.textContent = '⏳ Đang tạo link...';
+            linkBox.href = '#';
+            linkBox.textContent = '⏳ Đang xử lý...';
+            linkResult.style.display = 'block';
+            // Scroll đến đầu nút "LẤY ĐỘ NHẠY" để user thấy thiết bị + ổ khóa + link
+            btn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Tạo thẳng link kiếm tiền qua cổng Quick Link của Ontops
+            const quickLink = `https://ontops.link/st?apikey=${API_TOKEN}&url=${encodeURIComponent(resultUrl)}`;
+
+            // Trễ 0.5s để tạo hiệu ứng rồi hiện link
+            setTimeout(() => {
+                linkBox.href = window.isAdmin ? resultUrl : quickLink;
+                linkBox.textContent = `🔗 Bấm vào đây để lấy độ nhạy`;
+                
+                btn.disabled = false;
+                btn.textContent = '🔥 Lấy Độ Nhạy';
+
+                // Hiện mũi tên gợi ý kéo xuống
+                document.getElementById('scrollHint').style.display = 'flex';
+            }, 600);
+        }
+
+        // Cho phép nhấn Enter để submit
+        document.getElementById('deviceInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') getSensitivity();
+        });
+
+        // Ẩn mũi tên khi user scroll đến phần hướng dẫn
+        window.addEventListener('scroll', function() {
+            const hint = document.getElementById('scrollHint');
+            const box = document.querySelector('.instruction-box');
+            if (box && hint.style.display === 'flex') {
+                const rect = box.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 50) {
+                    hint.style.display = 'none';
+                }
+            }
+        });
+
+        // ================= ADMIN MODE =================
+        window.isAdmin = false;
+        let adminTimer;
+        const brandEl = document.querySelector('.brand');
+        if (brandEl) {
+            const startAdminTimer = (e) => {
+                adminTimer = setTimeout(() => {
+                    if (!window.isAdmin) {
+                        const pwd = prompt('Nhập mật khẩu Admin:');
+                        if (pwd === 'Thinhdz9') {
+                            window.isAdmin = true;
+                            alert('✅ Đã bật chế độ Admin! Lấy độ nhạy không cần vượt link.'); document.getElementById('adminChatBtn').style.display = 'block'; window.isChatOpen = true;
+            if (typeof lcDbRef !== 'undefined' && lcDbRef) { lcDbRef.update({ user_seen: true, last_active: firebase.database.ServerValue.TIMESTAMP }); } chatDb.goOnline();
+                        }
+                    }
+                }, 500);
+            };
+            const cancelAdminTimer = () => clearTimeout(adminTimer);
+
+            brandEl.style.userSelect = 'none';
+            brandEl.style.webkitUserSelect = 'none';
+            brandEl.addEventListener('contextmenu', e => e.preventDefault());
+            brandEl.addEventListener('mousedown', startAdminTimer);
+            brandEl.addEventListener('touchstart', startAdminTimer, {passive: true});
+            brandEl.addEventListener('mouseup', cancelAdminTimer);
+            brandEl.addEventListener('mouseleave', cancelAdminTimer);
+            brandEl.addEventListener('touchend', cancelAdminTimer);
+            brandEl.addEventListener('touchcancel', cancelAdminTimer);
+        }
+    </script>
+
+
+    <script>
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCPIEM7axK8C44dNtU3XJqYYAENvfAbT9o",
+            authDomain: "freefire-sensitivity-cd59e.firebaseapp.com",
+            databaseURL: "https://freefire-sensitivity-cd59e-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "freefire-sensitivity-cd59e",
+            storageBucket: "freefire-sensitivity-cd59e.firebasestorage.app",
+            messagingSenderId: "798081918335",
+            appId: "1:798081918335:web:1bb0a8d75216ba07bfa64a"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // Đọc số người vượt link thành công hôm nay (1 lần)
+        // Lấy ngày theo múi giờ Việt Nam (GMT+7)
+        const d = new Date();
+        const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+        const vnTime = new Date(utc + (3600000 * 7));
+        const today = vnTime.getFullYear() + '-' + String(vnTime.getMonth() + 1).padStart(2, '0') + '-' + String(vnTime.getDate()).padStart(2, '0');
+        const countRef = db.ref('daily_counts/' + today);
+        
+        // Mặc định hiển thị 3 dấu chấm
+        const countSpan = document.getElementById('todayCount');
+        countSpan.textContent = "***";
+        countSpan.style.cursor = "pointer";
+        countSpan.style.color = "#ff8c00";
+        countSpan.title = "Dành riêng cho Admin";
+
+        // Logic check admin
+        let actualCount = 0;
+        countRef.once('value').then(function(snapshot) {
+            actualCount = snapshot.val() || 0;
+            if (!window.isChatOpen) db.goOffline();
+        }).catch(function(error) {
+            console.error(error);
+        });
+
+        // countSpan.addEventListener('click', function() { ... }) đã được thay thế bằng click logo ẩn
+        let logoClicks = 0;
+        let logoTimer;
+        const brandLogo = document.querySelector('.brand');
+        if (brandLogo) {
+            brandLogo.addEventListener('click', function() {
+                logoClicks++;
+                clearTimeout(logoTimer);
+                if (logoClicks >= 2) {
+                    if (countSpan.textContent === "***") {
+                        countSpan.textContent = actualCount;
+                        countSpan.style.color = "#00ff00"; 
+                    }
+                    logoClicks = 0;
+                } else {
+                    logoTimer = setTimeout(() => { logoClicks = 0; }, 2000);
+                }
+            });
+        }
+    </script>
+    <script>
+        // --- BACKGROUND CHAT LISTENER ---
+        setTimeout(() => {
+            if (typeof firebase !== 'undefined' && firebase.database && localStorage.getItem('lc_chat_id')) {
+                const cid = localStorage.getItem('lc_chat_id');
+                                    if (!lcDbRef) {
+                        lcDbRef = chatDb.ref('live_chats/' + cid);
+                        chatDb.goOnline();
+                        lcDbRef.on('value', snap => {
+                            const d = snap.val();
+                            if (d && d.user_seen === false && !window.isChatOpen) {
+                                document.getElementById('chatBadge').style.display = 'block';
+                                document.getElementById('chatBadge').textContent = '!';
+                                const btn = document.querySelector('.tele-support');
+                                if (btn && !btn.classList.contains('shake-anim')) {
+                                    btn.classList.add('shake-anim');
+                                }
+                            }
+                        });
+                    
+                    let isInitialLoad = true;
+                    lcDbRef.child('messages').once('value', () => {
+                        isInitialLoad = false;
+                    });
+
+                    lcDbRef.child('messages').on('child_added', (snap) => {
+                        const data = snap.val();
+                        // Always append to DOM (it's hidden anyway)
+                        appendLcMsg(data.sender, data.text, data.image);
+                        
+                        // If it's a new message, admin sent it, and chat is closed -> show badge
+                        if (!isInitialLoad && data.sender === 'admin') { if (!window.isChatOpen) {
+                            unreadCount++;
+                            const badge = document.getElementById('chatBadge');
+                            if (badge) {
+                                badge.textContent = unreadCount;
+                                badge.style.display = 'block';
+                            }
+                            const btn = document.querySelector('.tele-support');
+                            if (btn) {
+                                btn.classList.remove('shake-anim');
+                                void btn.offsetWidth;
+                                btn.classList.add('shake-anim');
+                            }
+                        } else { lcDbRef.update({ user_seen: true }); } }
+                    });
+                }
+            }
+        }, 1500); // Wait a bit for firebase to load
+        // --- PASTE IMAGE LOGIC ---
+        ['lcInput', 'adminChatInput'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('paste', function(e) {
+                    const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+                    let imageFile = null;
+                    for (let i = 0; i < items.length; i++) {
+                        if (items[i].type.indexOf('image') === 0) {
+                            imageFile = items[i].getAsFile();
+                            break;
+                        }
+                    }
+                    if (imageFile) {
+                        e.preventDefault();
+                        if (id === 'adminChatInput') {
+                            if (!activeChatId) return alert('Vui lòng chọn 1 người bên danh sách để gửi ảnh!');
+                            compressAndSendImage(imageFile, 'admin', chatDb.ref('live_chats/' + activeChatId));
+                        } else {
+                            if (typeof lcDbRef !== 'undefined' && lcDbRef) {
+                                compressAndSendImage(imageFile, 'user', lcDbRef);
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    // --- QUICK SENSITIVITY GENERATOR ---
+window.SensGenerator = (function() {
+function seededRandom(seed, index) {
+            let hash = 0;
+            const str = seed + '_' + index;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return Math.abs(hash);
+        }
+
+        function randomInRange(min, max, seed, index) {
+            const rand = seededRandom(seed, index);
+            return min + (rand % (max - min + 1));
+        }
+
+        // =====================================================
+        // HỆ THỐNG PHÂN TẦNG ĐỘ NHẠY THÔNG MINH
+        // Máy cũ/phổ thông → Nhạy CAO (bù lag, màn nhỏ)
+        // Máy mới/flagship → Nhạy THẤP (120Hz mượt, ổn định)
+        // =====================================================
+
+        // --- PHÂN TẦNG iPHONE ---
+        function getIPhoneTier(name) {
+            const n = name.toLowerCase();
+            
+            // 1. Pro Max / Plus 120Hz (13 Pro Max, 14 Pro Max, 15 Pro Max, 16 Pro Max)
+            if (/(13|14|15|16)\s*pro\s*max/i.test(n)) return 'promax_120hz';
+            
+            // 2. Pro 120Hz (13 Pro, 14 Pro, 15 Pro, 16 Pro)
+            if (/(13|14|15|16)\s*pro/i.test(n)) return 'pro_120hz';
+            
+            // 3. Plus / Pro Max 60Hz (8 Plus, XS Max, 11 Pro Max, 12 Pro Max, 14 Plus, 15 Plus, 16 Plus)
+            if (/(8|14|15|16)\s*plus/i.test(n) || /(xs|11|12)\s*(pro\s*)?max/i.test(n)) return 'plus_60hz';
+            
+            // 4. Pro 60Hz (11 Pro, 12 Pro)
+            if (/(11|12)\s*pro/i.test(n)) return 'pro_60hz';
+            
+            // 5. Dòng thường (X, XS, XR, 11, 12, 13, 14, 15, 16, SE mới)
+            if (/(x|xs|xr|11|12|13|14|15|16|se\s*[23]|se\s*20)/i.test(n)) return 'regular';
+            
+            // 6. Dòng cũ màn bé (5, 6, 7, 8 thường, SE 1)
+            return 'old_small';
+        }
+
+        // --- PHÂN TẦNG iPAD ---
+        function getIPadTier(name) {
+            const n = name.toLowerCase();
+            if (/ipad\s*(pro|air\s*[5-9]|air\s*m|mini\s*[6-9])/i.test(n)) return 'flagship';
+            if (/ipad\s*(air|mini\s*[4-5]|10|9|202[2-9])/i.test(n)) return 'new';
+            if (/ipad\s*(mini\s*[2-3]|air\s*[1-2]|[5-8]|201[7-9]|202[0-1])/i.test(n)) return 'mid';
+            return 'mid';
+        }
+
+        // --- PHÂN TẦNG ANDROID (Tối ưu nhận diện chuẩn xác 100%, không bị lệch tầng) ---
+        function getAndroidTier(name) {
+            const n = name.toLowerCase().trim();
+            const clean = n.replace(/^(dien thoai|dienthoai|dt)\s*/i, '');
+
+            const isSamsung = (/\b(samsung|galaxy|ss)\b/i.test(clean) || /^(s|a|z|note)\s*\d/i.test(clean) || /^z\s*(fold|flip)/i.test(clean)) && !/\b(itel|vivo|oppo|realme|infinix|tecno|xiaomi|redmi|poco)\b/i.test(clean);
+
+            // ============ 1. FLAGSHIP (Mới nhất, cực mượt 120-165Hz) ============
+            // Samsung S24, S25, S23 Ultra, S24 Ultra, S25 Ultra
+            if (isSamsung && /\bs\s*(2[4-9]|[3-9]\d)/i.test(clean)) return 'flagship';
+            if (isSamsung && /\bs\s*23\s*(ultra|\+|plus)/i.test(clean)) return 'flagship';
+            // Samsung Z Fold/Flip 4, 5, 6...
+            if (isSamsung && /\bz\s*(fold|flip)\s*[4-9]/i.test(clean)) return 'flagship';
+            // ROG Phone 7, 8, 9
+            if (/rog\s*(phone)?\s*[7-9]/i.test(clean)) return 'flagship';
+            // RedMagic 8, 9, 10
+            if (/red\s*magic\s*(8|9|1\d)/i.test(clean)) return 'flagship';
+            // Xiaomi / Mi 14, 15, 16...
+            if (/\b(xiaomi\s*(mi\s*)?|mi\s*)(1[4-9]|[2-9]\d)\b/i.test(clean)) return 'flagship';
+            // OPPO Find X5, X6, X7, Find N2, N3
+            if (/find\s*(x[5-9]|n[2-9])/i.test(clean)) return 'flagship';
+            // Vivo X90, X100...
+            if (/vivo\s*x\s*(9\d|1\d{2})/i.test(clean)) return 'flagship';
+            // iQOO 12, 13, Neo 9
+            if (/iqoo\s*(1[2-9]|neo\s*9)/i.test(clean)) return 'flagship';
+            // OnePlus 11, 12...
+            if (/oneplus\s*(1[1-9]|[2-9]\d)/i.test(clean)) return 'flagship';
+            // Realme GT 5, 6, GT Neo 5, 6
+            if (/realme\s*gt\s*(5|6|[7-9]|neo\s*[5-9])/i.test(clean)) return 'flagship';
+
+            // ============ 2. CAO CẤP (S21-S23 thường, Poco F, ROG cũ, etc.) ============
+            // Samsung S20, S21, S22, S23 (non-ultra)
+            if (isSamsung && /\bs\s*(2[0-3])/i.test(clean)) return 'high';
+            // Samsung Note 10, Note 20
+            if (isSamsung && /\bnote\s*(10|20)/i.test(clean)) return 'high';
+            // Samsung Z Fold/Flip 1, 2, 3
+            if (isSamsung && /\bz\s*(fold|flip)/i.test(clean)) return 'high';
+            // Keyword Ultra, Pro Max Android
+            if (/\b(ultra|pro\s*max)\b/i.test(clean) && !/\b(itel|vsmart|c35|c55)\b/i.test(clean)) return 'high';
+            // ROG Phone chung (5, 6...)
+            if (/rog\s*(phone)?/i.test(clean)) return 'high';
+            // Red Magic chung
+            if (/red\s*magic/i.test(clean)) return 'high';
+            // Xiaomi / Mi 11, 12, 13
+            if (/\b(xiaomi\s*(mi\s*)?|mi\s*)(1[1-3])\b/i.test(clean)) return 'high';
+            // Poco F series (F3, F4, F5, F6...)
+            if (/poco\s*f/i.test(clean)) return 'high';
+            // Black Shark
+            if (/black\s*shark/i.test(clean)) return 'high';
+            // OPPO Find
+            if (/find\s*(x|n)/i.test(clean)) return 'high';
+            // Vivo X series
+            if (/vivo\s*x/i.test(clean)) return 'high';
+            // iQOO chung
+            if (/iqoo/i.test(clean)) return 'high';
+            // Realme GT chung
+            if (/realme\s*gt/i.test(clean)) return 'high';
+            // Nubia chung
+            if (/nubia/i.test(clean)) return 'high';
+
+            // ============ 3. TẦM TRUNG (Redmi Note, Galaxy A5x/A7x, Reno...) ============
+            // Samsung A5x, A7x (A50, A51, A52, A53, A54, A55, A70, A71, A72, A73)
+            if (isSamsung && /\ba\s*(5\d|7\d)/i.test(clean)) return 'mid';
+            // Samsung M5x
+            if (isSamsung && /\bm\s*(5\d)/i.test(clean)) return 'mid';
+            // Redmi Note
+            if (/redmi\s*note/i.test(clean)) return 'mid';
+            // Poco X, Poco M
+            if (/poco\s*[xm]/i.test(clean)) return 'mid';
+            // OPPO Reno
+            if (/reno/i.test(clean)) return 'mid';
+            // Vivo V / T series
+            if (/vivo\s*[vt]/i.test(clean)) return 'mid';
+            // Realme số (Realme 7 - 13), Realme Pro
+            if (/realme\s*(\d{1,2}|pro)/i.test(clean)) return 'mid';
+            // Tecno Camon, Pova
+            if (/tecno\s*(camon|pova)/i.test(clean)) return 'mid';
+            // Huawei Nova, P, Mate
+            if (/huawei\s*(nova|p\s*\d|mate)/i.test(clean)) return 'mid';
+            // Honor X7/X8/X9, Honor 70/90
+            if (/honor\s*(x\s*[7-9]|[5-9]\d|magic)/i.test(clean)) return 'mid';
+            // LG G7, G8, V50, V60, Velvet
+            if (/lg\s*(g\d|v\d|velvet)/i.test(clean)) return 'mid';
+            // Từ khóa Pro, Plus chung
+            if (/\b(pro|plus)\b/i.test(clean) && !/\b(itel|vsmart)\b/i.test(clean)) return 'mid';
+
+            // ============ 4. PHỔ THÔNG / YẾU / 60Hz ============
+            return 'budget';
+        }
+
+        // --- HÀM TỔNG HỢP LẤY TẦNG ---
+        function getDeviceTier(name, type) {
+            const n = name.toLowerCase();
+            if (type === 'pc' || n.includes('pc') || n.includes('giả lập') || n.includes('ldplayer')) return 'pc';
+            if (n.includes('ipad')) return 'ipad_' + getIPadTier(name);
+            if (type === 'iphone' || n.includes('iphone') || /^ip\s*\d/i.test(n)) return 'iphone_' + getIPhoneTier(name);
+            return 'android_' + getAndroidTier(name);
+        }
+
+        // =====================================================
+        // CẤU HÌNH ĐỘ NHẠY THEO TỪNG TẦNG
+        // Quy tắc: Máy cũ/yếu → số CAO | Máy mới/mạnh → số THẤP
+        // =====================================================
+        const SENSITIVITY_CONFIG = {
+            // ========== iPHONE ==========
+            // Dòng cũ màn bé (5, 5s, 6, 6s, 7, 8, SE 1)
+            iphone_old_small: {
+                label: "iOS • Màn Bé",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 130, max: 145 },
+                    { name: "Ống ngắm hồng tâm",     min: 150, max: 165 },
+                    { name: "Ống ngắm 2x",            min: 160, max: 175 },
+                    { name: "Ống ngắm 4x",            min: 140, max: 155 },
+                    { name: "Ống ngắm súng ngắm",     min: 44,  max: 56  },
+                    { name: "Nút camera tự do",       min: 27,  max: 35  },
+                    { name: "Kích thước nút bắn",     min: 38,  max: 43, unit: "%" },
+                ]
+            },
+            // Dòng thường (X, XS, XR, 11, 12, 13, 14, 15, 16)
+            iphone_regular: {
+                label: "iOS • Thường",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 120, max: 145 },
+                    { name: "Ống ngắm hồng tâm",     min: 140, max: 157 },
+                    { name: "Ống ngắm 2x",            min: 150, max: 167 },
+                    { name: "Ống ngắm 4x",            min: 130, max: 145 },
+                    { name: "Ống ngắm súng ngắm",     min: 41,  max: 54  },
+                    { name: "Nút camera tự do",       min: 22,  max: 30  },
+                    { name: "Kích thước nút bắn",     min: 36,  max: 41, unit: "%" },
+                ]
+            },
+            // Dòng Pro 60Hz (11 Pro, 12 Pro)
+            iphone_pro_60hz: {
+                label: "iOS • Pro (60Hz)",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 125, max: 140 },
+                    { name: "Ống ngắm hồng tâm",     min: 130, max: 147 },
+                    { name: "Ống ngắm 2x",            min: 140, max: 157 },
+                    { name: "Ống ngắm 4x",            min: 120, max: 135 },
+                    { name: "Ống ngắm súng ngắm",     min: 36,  max: 48  },
+                    { name: "Nút camera tự do",       min: 17,  max: 25  },
+                    { name: "Kích thước nút bắn",     min: 35,  max: 39, unit: "%" },
+                ]
+            },
+            // Dòng Plus / Pro Max 60Hz
+            iphone_plus_60hz: {
+                label: "iOS • Plus/Max (60Hz)",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 120, max: 135 },
+                    { name: "Ống ngắm hồng tâm",     min: 130, max: 147 },
+                    { name: "Ống ngắm 2x",            min: 140, max: 157 },
+                    { name: "Ống ngắm 4x",            min: 120, max: 135 },
+                    { name: "Ống ngắm súng ngắm",     min: 36,  max: 48  },
+                    { name: "Nút camera tự do",       min: 17,  max: 25  },
+                    { name: "Kích thước nút bắn",     min: 34,  max: 38, unit: "%" },
+                ]
+            },
+            // Dòng Pro 120Hz
+            iphone_pro_120hz: {
+                label: "iOS • Pro (120Hz)",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 115, max: 130 },
+                    { name: "Ống ngắm hồng tâm",     min: 115, max: 132 },
+                    { name: "Ống ngắm 2x",            min: 125, max: 142 },
+                    { name: "Ống ngắm 4x",            min: 105, max: 120 },
+                    { name: "Ống ngắm súng ngắm",     min: 26,  max: 39  },
+                    { name: "Nút camera tự do",       min: 8,   max: 16  },
+                    { name: "Kích thước nút bắn",     min: 35,  max: 39, unit: "%" },
+                ]
+            },
+            // Dòng Pro Max 120Hz
+            iphone_promax_120hz: {
+                label: "iOS • Pro Max (120Hz)",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 100, max: 120 },
+                    { name: "Ống ngắm hồng tâm",     min: 115, max: 132 },
+                    { name: "Ống ngắm 2x",            min: 125, max: 142 },
+                    { name: "Ống ngắm 4x",            min: 105, max: 120 },
+                    { name: "Ống ngắm súng ngắm",     min: 26,  max: 39  },
+                    { name: "Nút camera tự do",       min: 8,   max: 16  },
+                    { name: "Kích thước nút bắn",     min: 34,  max: 38, unit: "%" },
+                ]
+            },
+
+            // ========== iPAD ==========
+            ipad_mid: {
+                label: "iPadOS",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 90,  max: 120 },
+                    { name: "Ống ngắm hồng tâm",     min: 130, max: 148 },
+                    { name: "Ống ngắm 2x",            min: 140, max: 158 },
+                    { name: "Ống ngắm 4x",            min: 120, max: 136 },
+                    { name: "Ống ngắm súng ngắm",     min: 29,  max: 41  },
+                    { name: "Nút camera tự do",       min: 15,  max: 23  },
+                    { name: "Kích thước nút bắn",     min: 36,  max: 47, unit: "%" },
+                ]
+            },
+            ipad_new: {
+                label: "iPadOS",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 80,  max: 110 },
+                    { name: "Ống ngắm hồng tâm",     min: 120, max: 138 },
+                    { name: "Ống ngắm 2x",            min: 130, max: 148 },
+                    { name: "Ống ngắm 4x",            min: 110, max: 126 },
+                    { name: "Ống ngắm súng ngắm",     min: 26,  max: 37  },
+                    { name: "Nút camera tự do",       min: 10,  max: 18  },
+                    { name: "Kích thước nút bắn",     min: 35,  max: 45, unit: "%" },
+                ]
+            },
+            ipad_flagship: {
+                label: "iPadOS • Pro",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 70,  max: 100 },
+                    { name: "Ống ngắm hồng tâm",     min: 110, max: 128 },
+                    { name: "Ống ngắm 2x",            min: 120, max: 138 },
+                    { name: "Ống ngắm 4x",            min: 100, max: 116 },
+                    { name: "Ống ngắm súng ngắm",     min: 23,  max: 35  },
+                    { name: "Nút camera tự do",       min: 5,   max: 13  },
+                    { name: "Kích thước nút bắn",     min: 35,  max: 44, unit: "%" },
+                ]
+            },
+
+            // ========== ANDROID ==========
+            android_budget: {
+                label: "Android • Phổ thông",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 166, max: 190 },
+                    { name: "Ống ngắm hồng tâm",     min: 148, max: 160 },
+                    { name: "Ống ngắm 2x",            min: 158, max: 170 },
+                    { name: "Ống ngắm 4x",            min: 138, max: 150 },
+                    { name: "Ống ngắm súng ngắm",     min: 39,  max: 53  },
+                    { name: "Nút camera tự do",       min: 22,  max: 30  },
+                    { name: "Kích thước nút bắn",     min: 38,  max: 43, unit: "%" },
+                ]
+            },
+            android_mid: {
+                label: "Android • Tầm trung",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 156, max: 172 },
+                    { name: "Ống ngắm hồng tâm",     min: 138, max: 152 },
+                    { name: "Ống ngắm 2x",            min: 148, max: 162 },
+                    { name: "Ống ngắm 4x",            min: 128, max: 142 },
+                    { name: "Ống ngắm súng ngắm",     min: 35,  max: 48  },
+                    { name: "Nút camera tự do",       min: 17,  max: 25  },
+                    { name: "Kích thước nút bắn",     min: 36,  max: 41, unit: "%" },
+                ]
+            },
+            android_high: {
+                label: "Android • Cao cấp",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 145, max: 165 },
+                    { name: "Ống ngắm hồng tâm",     min: 128, max: 142 },
+                    { name: "Ống ngắm 2x",            min: 138, max: 152 },
+                    { name: "Ống ngắm 4x",            min: 118, max: 132 },
+                    { name: "Ống ngắm súng ngắm",     min: 32,  max: 46  },
+                    { name: "Nút camera tự do",       min: 12,  max: 20  },
+                    { name: "Kích thước nút bắn",     min: 35,  max: 39, unit: "%" },
+                ]
+            },
+            android_flagship: {
+                label: "Android • Flagship",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 130, max: 148 },
+                    { name: "Ống ngắm hồng tâm",     min: 110, max: 130 },
+                    { name: "Ống ngắm 2x",            min: 120, max: 140 },
+                    { name: "Ống ngắm 4x",            min: 100, max: 118 },
+                    { name: "Ống ngắm súng ngắm",     min: 28,  max: 42  },
+                    { name: "Nút camera tự do",       min: 5,   max: 15  },
+                    { name: "Kích thước nút bắn",     min: 34,  max: 38, unit: "%" },
+                ]
+            },
+
+            // ========== PC / GIẢ LẬP ==========
+            pc: {
+                label: "PC / Giả Lập",
+                settings: [
+                    { name: "Nhìn xung quanh",       min: 82,  max: 132 },
+                    { name: "Ống ngắm hồng tâm",     min: 115, max: 135 },
+                    { name: "Ống ngắm 2x",            min: 125, max: 145 },
+                    { name: "Ống ngắm 4x",            min: 105, max: 125 },
+                    { name: "Ống ngắm súng ngắm",     min: 26,  max: 39  },
+                    { name: "Nút camera tự do",       min: 8,   max: 18  },
+                    { name: "Kích thước nút bắn",     min: 39,  max: 50, unit: "%" },
+                ]
+            }
+        };
+
+        // Hàm chuẩn hóa tên thiết bị để sinh số ngẫu nhiên cố định (cùng 1 máy nhập cách nào cũng ra cùng 1 bộ số)
+        function normalizeSeed(name) {
+            let s = name.toLowerCase()
+                .replace(/\b(galaxy|dien thoai|điện thoại|dt)\b/g, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+            if (/^(s|a|z|note)\s*\d/i.test(s) || /^z\s*(fold|flip)/i.test(s)) {
+                s = 'samsung ' + s;
+            }
+            if (/^mi\s*\d/i.test(s)) {
+                s = 'xiaomi ' + s;
+            }
+            if (/\bxiaomi\s*mi\s*(\d+)/i.test(s)) {
+                s = s.replace(/\bxiaomi\s*mi\s*/i, 'xiaomi ');
+            }
+            if (/^ip\s*\d/i.test(s)) {
+                s = 'iphone ' + s.replace(/^ip\s*/i, '');
+            }
+            return s;
+        }
+
+        // Tạo giao diện
+        
+    return function(deviceName, type) {
+        const tier = getDeviceTier(deviceName, type);
+        const config = SENSITIVITY_CONFIG[tier] || SENSITIVITY_CONFIG.android_mid;
+        const seedName = normalizeSeed(deviceName);
+        let text = "🎮 Thông số " + deviceName + " (" + config.label + "):\n";
+        config.settings.forEach((setting, index) => {
+            const value = randomInRange(setting.min, setting.max, seedName, index);
+            text += "- " + setting.name + ": " + value + (setting.unit || '') + "\n";
+        });
+        text += "(Lần sau bạn nhớ tự lấy ngoài màn hình chính để ủng hộ Admin nhé!)";
+        return text;
+    };
+})();
+// -----------------------------------
+
+
+
+
+
+function sendQuickReply(type) {
+    if (!activeChatId) return alert('Vui lòng chọn 1 người bên danh sách để gửi!');
+    let text = '';
+    const input = document.getElementById('adminChatInput');
+    
+    if (type === 'HuongDan') {
+        text = 'Hệ thống: Chào bạn, vui lòng tắt khung chat, gõ tên máy ra ô trống ở màn hình chính và bấm LẤY ĐỘ NHẠY để nhận cấu hình nhé!';
+    } else if (type === 'DoiTy') {
+        text = 'Chào bạn, Admin đang bận chút xíu, bạn vui lòng chờ hoặc tự thao tác theo hướng dẫn trên web nhé!';
+    } else if (type === 'F5') {
+        text = 'Mình đã kiểm tra và khắc phục xong, bạn F5 tải lại trang rồi thử lại nhé!';
+    } else if (type === 'Sens') {
+        const deviceName = input.value.trim();
+        if (!deviceName) return alert('Vui lòng nhập tên máy (VD: iPhone 6s) vào ô chat trước khi bấm nút ⚡ Tính & Gửi Số!');
+        if (typeof window.SensGenerator !== 'function') return alert('Lỗi tải module tính toán.');
+        text = window.SensGenerator(deviceName, 'phone');
+        input.value = '';
+    }
+    
+    if (text) {
+        try {
+            chatDb.ref('live_chats/' + activeChatId + '/messages').push({
+                sender: 'admin',
+                text: text,
+                time: Date.now()
+            });
+            chatDb.ref('live_chats/' + activeChatId).update({
+                last_active: Date.now(),
+                user_seen: false,
+                admin_seen: true
+            });
+        } catch(err) {
+            alert("Lỗi: " + err.message);
+        }
+    }
+}
+</script>
+</body>
+</html>
+
